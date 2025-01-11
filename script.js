@@ -8,7 +8,6 @@ function playGame() {
 		// get human and computer selections for each round
 		const humanSelection = getHumanChoice();
 		if (humanSelection === null) {
-			console.log("Game cancelled by user.");
 			break;
 		}
 
@@ -28,15 +27,24 @@ function playGame() {
 		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  You ${result}.`);
 		console.log(`Human Score: ${humanScore} - Computer Score: ${computerScore}`);
 	}
+	// return the scores as an array since only one variable can be returned? I'm sure there is a better way to do this...
+	return [humanScore, computerScore];
+}
 
-	//display final results at end of game
-	console.log(`At the end of ${maxRounds} rounds, you had a score of ${humanScore} and the computer had a score of ${computerScore}.`);
-	if (humanScore > computerScore) {
-		console.log("You win!");
+//display final results at end of game
+function finalResult(finalScore) {
+	const [humanScore, computerScore] = finalScore; // split array
+	console.log(`Final Result - Human Score: ${humanScore} - Computer score: ${computerScore}.`);
+	if (humanScore === 0 && computerScore === 0) {
+		console.log("Game cancelled by user.");
+	} else if (humanScore > computerScore) {
+		console.log("You win.");
 	} else if (humanScore < computerScore) {
-		console.log("You lose!");
+		console.log("You lose.");
+	} else if (humanScore === computerScore) {
+		console.log("Tie game.");
 	} else {
-		console.log("Tie game!");
+		console.log("Game cancelled by user.");
 	}
 }
 
@@ -85,5 +93,6 @@ function playRound(humanChoice, computerChoice) {
 	return roundResult;
 }
 
-// start game
-playGame();
+// invoke functions
+const finalScore = playGame(); // initiate the game and return the final score as an array
+finalResult(finalScore); // display final result of game using an array from playGame()
