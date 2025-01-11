@@ -1,13 +1,27 @@
 // Define variables
 const humanSelection = getHumanChoice();
-let validSelection = false;;
+//let validSelection = false;;
 const computerSelection = getComputerChoice();
 let humanScore = 0;
 let computerScore = 0;
 
 // 	Ask user for to select between "Rock", "Paper" or "Scissors"
 function getHumanChoice() {
-	let humanChoice = prompt("Choose \"Rock\" \"Paper\" or \"Scissors\": ");
+	// Check if user input is valid
+	const validOptions = ["rock", "paper", "scissors"];
+	let humanChoice = "";
+	while (!validOptions.includes((humanChoice || "").toLowerCase())) {
+		humanChoice = prompt("Please enter a valid selection (Rock, Paper, or Scissors):");
+	// Check if user cancels with out making any selection
+		if (humanChoice === null) {
+			return "";
+		}
+	// Invalid entry, re-select
+		if (!validOptions.includes(humanChoice.toLowerCase())) {
+			alert("Invalid entry. Please re-enter your selection.");
+		}
+	}
+	console.log(`You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()}.`);
 	return humanChoice;
 }
 
@@ -31,36 +45,22 @@ function getComputerChoice() {
 
 // Declare function to start a new round and  check for win condition
 function playRound(humanChoice, computerChoice) {
-	let winMessage;
+	let roundResult;
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
-		winMessage = "Tie";
+		roundResult = "Tie";	
+	} else if (humanChoice === ""){
+		roundResult = "You cancelled the game. Goodbye.";
 	} else if (humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
-		winMessage = "You lose!";
+		roundResult = "You lose!";
 	} else if (humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "scissors") {
-		winMessage = "You lose!";
+		roundResult = "You lose!";
 	} else if (humanChoice.toLowerCase() === "scissors" && computerChoice.toLowerCase() === "rock") {
-		winMessage = "You lose!";
+		roundResult = "You lose!";
 	} else {
-		winMessage = "You win!";
+		roundResult = "You win!";
 	}
-	return winMessage;
+	return roundResult;
 }
 
-// Activate functions
-// humanChoice = getHumanChoice();
-// validSelection = checkHumanChoice(humanChoice.toLowerCase());
-
-// not working correctly if user cancels after second failed input
-	// while (validSelection === false) {
-	// 	if (confirm("Invalid selection, try again?") === true) {
-	// 		humanChoice = getHumanChoice();
-	// 		validSelection = checkHumanChoice(humanChoice.toLowerCase());
-	// 	} else {
-	// 		console.log("Game cancelled.")
-	// 		break;
-	// 	}
-	// }
-// Print result from invoking win condition function
-console.log(`You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()}.`);
+// Invoke new game
 console.log(playRound(humanSelection, computerSelection));
-//     END
