@@ -10,9 +10,9 @@ function playGame() {
 		const computerSelection = getComputerChoice().toLowerCase();
 		const result = playRound(humanSelection, computerSelection)
 
-		if (result  === "You win.") {
+		if (result  === "win") {
 			++humanScore;
-		} else if (result === "You lose.") {
+		} else if (result === "lose") {
 			++computerScore;
 	// exit loop and game if user cancels
 		// } else if (result === "") {
@@ -22,7 +22,7 @@ function playGame() {
 			// do nothing if tied or cancelled
 		}
 		// display result from current round
-		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  ${result}.`);
+		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  You ${result}.`);
 		console.log(`Human Score: ${humanScore} - Computer Score: ${computerScore}`);
 	}
 	console.log(`At the end of ${maxRounds} rounds, you had a score of ${humanScore} and the computer had a score of ${computerScore}.`);
@@ -65,17 +65,17 @@ function getComputerChoice() {
 function playRound(humanChoice, computerChoice) {
 	let roundResult;
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
-		roundResult = "Tie.";	
+		roundResult = "tie";	
 	} else if (humanChoice === ""){
-		roundResult = "You cancelled the game. Goodbye.";
+		roundResult = "exit";
 	} else if (humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
-		roundResult = "You lose.";
+		roundResult = "lose";
 	} else if (humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "scissors") {
-		roundResult = "You lose.";
+		roundResult = "lose";
 	} else if (humanChoice.toLowerCase() === "scissors" && computerChoice.toLowerCase() === "rock") {
-		roundResult = "You lose.";
+		roundResult = "lose";
 	} else {
-		roundResult = "You win.";
+		roundResult = "win";
 	}
 	return roundResult;
 }
