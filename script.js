@@ -11,6 +11,7 @@ function playGame() {
 			console.log("Game cancelled by user.");
 			break;
 		}
+
 		const computerSelection = getComputerChoice().toLowerCase();
 		const result = playRound(humanSelection, computerSelection);
 
@@ -22,10 +23,13 @@ function playGame() {
 		} else {
 			// do nothing if tied
 		}
+
 		// display result from current round
 		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  You ${result}.`);
 		console.log(`Human Score: ${humanScore} - Computer Score: ${computerScore}`);
 	}
+
+	//display final results at end of game
 	console.log(`At the end of ${maxRounds} rounds, you had a score of ${humanScore} and the computer had a score of ${computerScore}.`);
 	if (humanScore > computerScore) {
 		console.log("You win!");
@@ -83,5 +87,3 @@ function playRound(humanChoice, computerChoice) {
 
 // start game
 playGame();
-
-// errors need to be fixed regarding the game loop and the user canceling out of the prompts
