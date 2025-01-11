@@ -1,8 +1,39 @@
-// Define variables
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-let humanScore = 0;
-let computerScore = 0;
+// main game loop function
+function playGame() {
+	const maxRounds = 5;
+	let humanScore = 0;
+	let computerScore = 0;
+
+	for (let i = 0; i < maxRounds; i++) {
+		// get human and computer selections for each round
+		const humanSelection = getHumanChoice().toLowerCase();
+		const computerSelection = getComputerChoice().toLowerCase();
+		const result = playRound(humanSelection, computerSelection)
+
+		if (result  === "You win.") {
+			++humanScore;
+		} else if (result === "You lose.") {
+			++computerScore;
+	// exit loop and game if user cancels
+		// } else if (result === "") {
+		// 	console.log("Game cancelled by user.")
+		// 	break; 
+		} else {
+			// do nothing if tied or cancelled
+		}
+		// display result from current round
+		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  ${result}.`);
+		console.log(`Human Score: ${humanScore} - Computer Score: ${computerScore}`);
+	}
+	console.log(`At the end of ${maxRounds} rounds, you had a score of ${humanScore} and the computer had a score of ${computerScore}.`);
+	if (humanScore > computerScore) {
+		console.log("You win!");
+	} else if (humanScore < computerScore) {
+		console.log("You lose!");
+	} else {
+		console.log("Tie game!");
+	}
+}
 
 // 	Ask user for to select between "Rock", "Paper" or "Scissors"
 function getHumanChoice() {
@@ -13,14 +44,13 @@ function getHumanChoice() {
 		humanChoice = prompt("Please enter a valid selection (Rock, Paper, or Scissors):");
 	// Check if user cancels with out making any selection
 		if (humanChoice === null) {
-			return "";
+			return ""; // avoid null error
 		}
 	// Invalid entry, re-select
 		if (!validOptions.includes(humanChoice.toLowerCase())) {
 			alert("Invalid entry. Please re-enter your selection.");
 		}
 	}
-	console.log(`You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()}.`);
 	return humanChoice;
 }
 
@@ -35,20 +65,22 @@ function getComputerChoice() {
 function playRound(humanChoice, computerChoice) {
 	let roundResult;
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
-		roundResult = "Tie";	
+		roundResult = "Tie.";	
 	} else if (humanChoice === ""){
 		roundResult = "You cancelled the game. Goodbye.";
 	} else if (humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
-		roundResult = "You lose!";
+		roundResult = "You lose.";
 	} else if (humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "scissors") {
-		roundResult = "You lose!";
+		roundResult = "You lose.";
 	} else if (humanChoice.toLowerCase() === "scissors" && computerChoice.toLowerCase() === "rock") {
-		roundResult = "You lose!";
+		roundResult = "You lose.";
 	} else {
-		roundResult = "You win!";
+		roundResult = "You win.";
 	}
 	return roundResult;
 }
 
-// Invoke new game
-console.log(playRound(humanSelection, computerSelection));
+// start game
+playGame();
+
+// errors need to be fixed regarding the game loop and the user canceling out of the prompts
