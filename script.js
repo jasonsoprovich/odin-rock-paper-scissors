@@ -1,6 +1,5 @@
 // Define variables
 const humanSelection = getHumanChoice();
-//let validSelection = false;;
 const computerSelection = getComputerChoice();
 let humanScore = 0;
 let computerScore = 0;
@@ -24,17 +23,6 @@ function getHumanChoice() {
 	console.log(`You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()}.`);
 	return humanChoice;
 }
-
-// Check to see if user entered a valid selection
-// function checkHumanChoice(humanChoice) {
-// 	let validSelection;
-// 	if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
-// 		validSelection = true;
-// 	} else {
-// 		validSelection = false;
-// 	}
-// 	return validSelection;
-// }
 
 // Randomly generate computer input
 function getComputerChoice() {
