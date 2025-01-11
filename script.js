@@ -6,20 +6,21 @@ function playGame() {
 
 	for (let i = 0; i < maxRounds; i++) {
 		// get human and computer selections for each round
-		const humanSelection = getHumanChoice().toLowerCase();
+		const humanSelection = getHumanChoice();
+		if (humanSelection === null) {
+			console.log("Game cancelled by user.");
+			break;
+		}
 		const computerSelection = getComputerChoice().toLowerCase();
-		const result = playRound(humanSelection, computerSelection)
+		const result = playRound(humanSelection, computerSelection);
 
+		//keep track of total scores
 		if (result  === "win") {
 			++humanScore;
 		} else if (result === "lose") {
 			++computerScore;
-	// exit loop and game if user cancels
-		// } else if (result === "") {
-		// 	console.log("Game cancelled by user.")
-		// 	break; 
 		} else {
-			// do nothing if tied or cancelled
+			// do nothing if tied
 		}
 		// display result from current round
 		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  You ${result}.`);
@@ -44,7 +45,7 @@ function getHumanChoice() {
 		humanChoice = prompt("Please enter a valid selection (Rock, Paper, or Scissors):");
 	// Check if user cancels with out making any selection
 		if (humanChoice === null) {
-			return ""; // avoid null error
+			return null;
 		}
 	// Invalid entry, re-select
 		if (!validOptions.includes(humanChoice.toLowerCase())) {
@@ -67,7 +68,7 @@ function playRound(humanChoice, computerChoice) {
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
 		roundResult = "tie";	
 	} else if (humanChoice === ""){
-		roundResult = "exit";
+		roundResult = null;
 	} else if (humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
 		roundResult = "lose";
 	} else if (humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "scissors") {
