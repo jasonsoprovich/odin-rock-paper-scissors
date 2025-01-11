@@ -24,7 +24,7 @@ function playGame() {
 		}
 
 		// display result from current round
-		console.log(`Round ${i + 1}: You chose ${humanSelection} and the computer chose ${computerSelection} -  You ${result}.`);
+		console.log(`Round ${i + 1}: You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()} -  You ${result}.`);
 		console.log(`Human Score: ${humanScore} - Computer Score: ${computerScore}`);
 	}
 	// return the scores as an array since only one variable can be returned? I'm sure there is a better way to do this...
@@ -38,13 +38,13 @@ function finalResult(finalScore) {
 	if (humanScore === 0 && computerScore === 0) {
 		console.log("Game cancelled by user.");
 	} else if (humanScore > computerScore) {
-		console.log("You win.");
+		console.log("You won the game.");
 	} else if (humanScore < computerScore) {
-		console.log("You lose.");
+		console.log("You lost the game.");
 	} else if (humanScore === computerScore) {
 		console.log("Tie game.");
 	} else {
-		console.log("Game cancelled by user.");
+		console.log("Game was cancelled by the user.");
 	}
 }
 
@@ -78,7 +78,7 @@ function getComputerChoice() {
 function playRound(humanChoice, computerChoice) {
 	let roundResult;
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
-		roundResult = "tie";	
+		roundResult = "tied";	
 	} else if (humanChoice === ""){
 		roundResult = null;
 	} else if (humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
