@@ -1,72 +1,66 @@
-// PSEUDOCODE
-// START
-// Define variables for user input and computer input
-let userInput;
-let validSelection;
-const computerInput = computerSelection();
+// Define variables
+const humanSelection = getHumanChoice();
+let validSelection = false;;
+const computerSelection = getComputerChoice();
+let humanScore = 0;
+let computerScore = 0;
 
-// 	Ask user for to select between "Rock", "Paper" or "Scissors
-function askUser() {
-	let userInput = prompt("Choose \"Rock\" \"Paper\" or \"Scissors\": ");
-	return userInput;
+// 	Ask user for to select between "Rock", "Paper" or "Scissors"
+function getHumanChoice() {
+	let humanChoice = prompt("Choose \"Rock\" \"Paper\" or \"Scissors\": ");
+	return humanChoice;
 }
+
 // Check to see if user entered a valid selection
-function checkUserInput(userInput) {
-	let validSelection;
-	if (userInput === "rock" || userInput === "paper" || userInput === "scissors") {
-		validSelection = true;
-	} else {
-		validSelection = false;
-	}
-	return validSelection;
-}
+// function checkHumanChoice(humanChoice) {
+// 	let validSelection;
+// 	if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
+// 		validSelection = true;
+// 	} else {
+// 		validSelection = false;
+// 	}
+// 	return validSelection;
+// }
+
 // Randomly generate computer input
-function computerSelection() {
+function getComputerChoice() {
 	const validOptions = ["Rock", "Paper", "Scissors"];
-	const computerInput = Math.floor(Math.random() * validOptions.length);
-	return validOptions[computerInput];
+	const computerChoice = Math.floor(Math.random() * validOptions.length);
+	return validOptions[computerChoice];
 }
-// Declare function to check for win condition
-// Define variable for result
-// If user input and computer input are equal, then result equals "Tie"
-// Else
-// 					If user input equals "Rock" and computer input equals "Paper" then result equals "Lose" 
-// 						Else result equals "Win"
-// 					If user input equals "Paper" and computer input equals "Scissors" then result equals "Lose" 
-// 						Else result equals "Win"
-// 					If user input equals "Scissors" and computer input equals "Rock" then result equals "Lose" 
-// 						Else result equals "Win"
-// 			Return result
-function winCondition(userInput, computerInput) {
+
+// Declare function to start a new round and  check for win condition
+function playRound(humanChoice, computerChoice) {
 	let winMessage;
-	if (userInput.toLowerCase() === computerInput.toLowerCase()) {
+	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
 		winMessage = "Tie";
-	} else if (userInput.toLowerCase() === "rock" && computerInput.toLowerCase() === "paper") {
+	} else if (humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
 		winMessage = "You lose!";
-	} else if (userInput.toLowerCase() === "paper" && computerInput.toLowerCase() === "scissors") {
+	} else if (humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "scissors") {
 		winMessage = "You lose!";
-	} else if (userInput.toLowerCase() === "scissors" && computerInput.toLowerCase() === "rock") {
+	} else if (humanChoice.toLowerCase() === "scissors" && computerChoice.toLowerCase() === "rock") {
 		winMessage = "You lose!";
 	} else {
 		winMessage = "You win!";
 	}
 	return winMessage;
 }
+
 // Activate functions
-userInput = askUser();
-validSelection = checkUserInput(userInput.toLowerCase());
+// humanChoice = getHumanChoice();
+// validSelection = checkHumanChoice(humanChoice.toLowerCase());
 
 // not working correctly if user cancels after second failed input
-	while (validSelection === false) {
-		if (confirm("Invalid selection, try again?") === true) {
-			userInput = askUser();
-			validSelection = checkUserInput(userInput.toLowerCase());
-		} else {
-			console.log("Game cancelled.")
-			break;
-		}
-	}
+	// while (validSelection === false) {
+	// 	if (confirm("Invalid selection, try again?") === true) {
+	// 		humanChoice = getHumanChoice();
+	// 		validSelection = checkHumanChoice(humanChoice.toLowerCase());
+	// 	} else {
+	// 		console.log("Game cancelled.")
+	// 		break;
+	// 	}
+	// }
 // Print result from invoking win condition function
-console.log(`You chose ${userInput.toLowerCase()} and the computer chose ${computerInput.toLowerCase()}.`);
-console.log(winCondition(userInput, computerInput));
+console.log(`You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()}.`);
+console.log(playRound(humanSelection, computerSelection));
 //     END
