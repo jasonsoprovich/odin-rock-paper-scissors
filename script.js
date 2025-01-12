@@ -1,20 +1,22 @@
-// main game loop function
 function playGame() {
 	const maxRounds = 5;
 	let humanScore = 0;
 	let computerScore = 0;
+	let gameCancelled = false;
 
 	for (let i = 0; i < maxRounds; i++) {
-		// get human and computer selections for each round
 		const humanSelection = getHumanChoice();
+		
+		// end game loop if input is cancelled by user
 		if (humanSelection === null) {
+			gameCancelled = true;
 			break;
 		}
 
 		const computerSelection = getComputerChoice().toLowerCase();
 		const result = playRound(humanSelection, computerSelection);
 
-		//keep track of total scores
+		// keep track of total scores
 		if (result  === "win") {
 			++humanScore;
 		} else if (result === "lose") {
@@ -27,32 +29,32 @@ function playGame() {
 		console.log(`Round ${i + 1}: You chose ${humanSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()} -  You ${result}.`);
 		console.log(`Human Score: ${humanScore} - Computer Score: ${computerScore}`);
 	}
-	// return the scores as an array since only one variable can be returned? I'm sure there is a better way to do this...
-	return [humanScore, computerScore];
+	// return the scores as an array since only one variable can be returned? May be a better way to do this?
+	return [humanScore, computerScore, gameCancelled];
 }
 
-//display final results at end of game
 function finalResult(finalScore) {
-	const [humanScore, computerScore] = finalScore; // split array
+	const [humanScore, computerScore, gameCancelled] = finalScore; // split array
+	if (gameCancelled === true) {
+		console.log("Game was cancelled by the user.");
+		return;
+	}
+
 	console.log(`Final Result - Human Score: ${humanScore} - Computer score: ${computerScore}.`);
-	if (humanScore === 0 && computerScore === 0) {
-		console.log("Game cancelled by user.");
-	} else if (humanScore > computerScore) {
+	if (humanScore > computerScore) {
 		console.log("You won the game.");
 	} else if (humanScore < computerScore) {
 		console.log("You lost the game.");
-	} else if (humanScore === computerScore) {
-		console.log("Tie game.");
 	} else {
-		console.log("Game was cancelled by the user.");
+		console.log("Tie game.");
 	}
 }
 
-// 	Ask user for to select between "Rock", "Paper" or "Scissors"
 function getHumanChoice() {
 	// Check if user input is valid
 	const validOptions = ["rock", "paper", "scissors"];
 	let humanChoice = "";
+	
 	while (!validOptions.includes((humanChoice || "").toLowerCase())) {
 		humanChoice = prompt("Please enter a valid selection (Rock, Paper, or Scissors):");
 	// Check if user cancels with out making any selection
@@ -67,14 +69,12 @@ function getHumanChoice() {
 	return humanChoice;
 }
 
-// Randomly generate computer input
 function getComputerChoice() {
 	const validOptions = ["Rock", "Paper", "Scissors"];
 	const computerChoice = Math.floor(Math.random() * validOptions.length);
 	return validOptions[computerChoice];
 }
 
-// Declare function to start a new round and  check for win condition
 function playRound(humanChoice, computerChoice) {
 	let roundResult;
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
@@ -93,6 +93,5 @@ function playRound(humanChoice, computerChoice) {
 	return roundResult;
 }
 
-// invoke functions
 const finalScore = playGame(); // initiate the game and return the final score as an array
 finalResult(finalScore); // display final result of game using an array from playGame()
