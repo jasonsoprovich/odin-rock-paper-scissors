@@ -1,5 +1,8 @@
+// SETUP
 let humanScore = 0;
 let computerScore = 0;
+const maxScore = 5;
+
 const buttons = document.getElementById('button-container');
 const resultsDiv = document.getElementById('results-container');
 
@@ -16,24 +19,28 @@ buttons.appendChild(rockButton);
 buttons.appendChild(paperButton);
 buttons.appendChild(scissorsButton);
 
-rockButton.addEventListener('click', function(){
-	const computerChoice = getComputerChoice();
-	const result = playRound(rockClick, computerChoice);
-	addTableRows(rockClick, computerChoice, result, humanScore, computerScore);
-});
+rockButton.addEventListener('click', () => playGame(rockClick));
 
-paperButton.addEventListener('click', function(){
-	const computerChoice = getComputerChoice();
-	const result = playRound(paperClick, computerChoice);
-	addTableRows(paperClick, computerChoice, result, humanScore, computerScore);
-});
+paperButton.addEventListener('click', () => playGame(paperClick));
 
-scissorsButton.addEventListener('click', function(){
-	const computerChoice = getComputerChoice();
-	const result = playRound(scissorsClick, computerChoice);
-	addTableRows(scissorsClick, computerChoice, result, humanScore, computerScore);
-});
+scissorsButton.addEventListener('click', () => playGame(scissorsClick));
 		
+// GAME LOGIC
+
+function playGame(humanChoice) {
+	if (humanScore >= maxScore || computerScore >= maxScore) {
+			return;
+	}
+
+	const computerChoice = getComputerChoice();
+	const result = playRound(humanChoice, computerChoice);
+	addTableRows(humanChoice, computerChoice, result, humanScore, computerScore);
+
+	if (humanScore >= maxScore || computerScore >= maxScore) {
+		endGame();
+	}
+}
+
 function playRound(humanChoice, computerChoice) {
 	let result;
 	if (humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
@@ -60,18 +67,23 @@ function getComputerChoice() {
 }
 
 function scoreTracker(result) {
-	const maxScore = 5;
-
 		if (result === 'win') {
 			humanScore++;
 		} else if (result === 'lose') {
 			computerScore++;
 		}
-
-	return [humanScore,computerScore];
 }
 
-//CREATE RESULTS TABLE
+function endGame() {
+	rockButton.disabled = true; 
+	paperButton.disabled = true; 
+	scissorsButton.disabled = true; 
+
+	const finalResult = humanScore > computerScore ? "You won the game!" : "Computer won the game!";
+	addTableRows('Game Over', '', finalResult, humanScore, computerScore);
+}
+
+// DISPLAY RESULTS TABLE
 const headers = ['User','Computer','Result','Score'];
 const headerRow = createTableHeaders(headers);
 
