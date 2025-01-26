@@ -77,12 +77,14 @@ function playRound(humanChoice, computerChoice) {
 // NEW CODE
 
 const buttons = document.getElementById('button-container');
-const results = document.getElementById('results-container');
+const resultsDiv = document.getElementById('results-container');
+const resultsTable = document.createElement('table');
 
 const rockButton = document.createElement('button');
 const paperButton = document.createElement('button');
 const scissorsButton = document.createElement('button');
-const result = document.createElement('h3');
+
+// const result = document.createElement('h3');
 
 const rockClick = rockButton.textContent = 'Rock';
 const paperClick = paperButton.textContent = 'Paper';
@@ -93,7 +95,7 @@ buttons.appendChild(paperButton);
 buttons.appendChild(scissorsButton);
 
 
-results.appendChild(document.createTextNode('RESULT'));
+// results.appendChild(document.createTextNode('RESULT'));
 
 rockButton.addEventListener('click', function(){
 	const computerChoice = getComputerChoice();
@@ -113,5 +115,21 @@ scissorsButton.addEventListener('click', function(){
 	console.log(result);
 });
 
+//CREATE RESULTS TABLE
 
+function createTableHeaders() {
+	const headerRow = document.createElement('tr');
+		
+	headers.forEach(headerText => {
+		const headerCell = document.createElement('th');
+		headerCell.textContent = headerText;
+		headerRow.appendChild(headerCell);
+	});
+	return headerRow;
+}
 
+const headers = ['User','Computer','Result','Score'];
+const headerRow = createTableHeaders(headers);
+
+resultsTable.appendChild(headerRow);
+resultsDiv.appendChild(resultsTable);
