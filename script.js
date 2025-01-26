@@ -95,3 +95,19 @@ function playRound(humanChoice, computerChoice) {
 
 const finalScore = playGame(); // initiate the game and return the final score as an array
 finalResult(finalScore); // display final result of game using an array from playGame()
+
+const buttons = document.getElementById('button-container');
+
+const rockButton = document.createElement('button');
+const paperButton = document.createElement('button');
+const scissorsButton = document.createElement('button');
+
+rockButton.textContent = 'Rock';
+paperButton.textContent = 'Paper';
+scissorsButton.textContent = 'Scissors';
+
+buttons.appendChild(rockButton);
+buttons.appendChild(paperButton);
+buttons.appendChild(scissorsButton);
+
+
