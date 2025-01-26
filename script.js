@@ -113,7 +113,8 @@ function addTableRows(humanChoice, computerChoice, result, humanScore, computerS
 	const resultCell = document.createElement('td');
 	const resultOutput = result === 'win' ? 'You won!':
 		result === 'lose' ? 'Computer won!':
-		'Tie game!';
+		result === 'tied' ? 'Tie game!':
+		result;
 	resultCell.textContent = resultOutput;
 
 	const scoreCell = document.createElement('td');
