@@ -10,21 +10,23 @@ const resultsTable = document.createElement('table');
 const rockButton = document.createElement('button');
 const paperButton = document.createElement('button');
 const scissorsButton = document.createElement('button');
+const resetButton = document.createElement('button');
 
 const rockClick = rockButton.textContent = 'Rock';
 const paperClick = paperButton.textContent = 'Paper';
 const scissorsClick = scissorsButton.textContent = 'Scissors';
+resetButton.textContent = 'Reset Game';
 
 buttons.appendChild(rockButton);
 buttons.appendChild(paperButton);
 buttons.appendChild(scissorsButton);
+buttons.appendChild(resetButton);
 
 rockButton.addEventListener('click', () => playGame(rockClick));
-
 paperButton.addEventListener('click', () => playGame(paperClick));
-
 scissorsButton.addEventListener('click', () => playGame(scissorsClick));
-		
+resetButton.addEventListener('click', resetGame);
+
 // GAME LOGIC
 
 function playGame(humanChoice) {
@@ -89,7 +91,6 @@ const headerRow = createTableHeaders(headers);
 
 function createTableHeaders() {
 	const headerRow = document.createElement('tr');
-	
 	headers.forEach(headerText => {
 		const headerCell = document.createElement('th');
 		headerCell.textContent = headerText;
@@ -126,4 +127,18 @@ function addTableRows(humanChoice, computerChoice, result, humanScore, computerS
 	addRow.appendChild(scoreCell);
 
 	resultsTable.appendChild(addRow);
+}
+
+function resetGame() {
+	humanScore = 0;
+	computerScore = 0;
+
+	resultsTable.innerHTML = ''; // clear table
+	resultsTable.appendChild(headerRow); // re-add header row
+
+	rockButton.disabled = false;
+	paperButton.disabled = false;
+	scissorsButton.disabled = false;
+
+	addTableRows('Game Reset', '', 'Start a new game!', humanScore, computerScore);
 }
