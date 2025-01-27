@@ -81,8 +81,10 @@ function endGame() {
 	paperButton.disabled = true; 
 	scissorsButton.disabled = true; 
 
-	const finalResult = humanScore > computerScore ? "You won the game!" : "Computer won the game!";
-	addTableRows('Game Over', '', finalResult, humanScore, computerScore);
+	const result = humanScore > computerScore ? 'win' : 'lose';
+	const finalResult = result === 'win' ? "You won the game!" : "Computer won the game!";
+
+	addTableRows('Game Over', '', finalResult, humanScore, computerScore, true, result);
 }
 
 // DISPLAY RESULTS TABLE
@@ -102,7 +104,7 @@ function createTableHeaders() {
 resultsTable.appendChild(headerRow);
 resultsDiv.appendChild(resultsTable);
 
-function addTableRows(humanChoice, computerChoice, result, humanScore, computerScore) {
+function addTableRows(humanChoice, computerChoice, result, humanScore, computerScore, isFinalRow = false, resultType = null) {
 	const addRow = document.createElement('tr');
 
 	const userCell = document.createElement('td');
@@ -116,6 +118,7 @@ function addTableRows(humanChoice, computerChoice, result, humanScore, computerS
 		result === 'lose' ? 'Computer won!':
 		result === 'tied' ? 'Tie game!':
 		result;
+
 	resultCell.textContent = resultOutput;
 
 	const scoreCell = document.createElement('td');
@@ -126,6 +129,15 @@ function addTableRows(humanChoice, computerChoice, result, humanScore, computerS
 	addRow.appendChild(resultCell);
 	addRow.appendChild(scoreCell);
 
+	// highlight final result based on win/lose condition
+	if (isFinalRow && resultType) {
+		if (resultType === 'win') {
+			addRow.classList.add('win-final'); 
+		} else if (resultType === 'lose') {
+			addRow.classList.add('lose-final');
+		}
+	}
+	
 	resultsTable.appendChild(addRow);
 }
 

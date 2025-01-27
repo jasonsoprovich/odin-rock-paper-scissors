@@ -103,3 +103,18 @@ tr.game-over {
     padding: 10px;
   }
 }
+
+/* Final Row Styles */
+tr.win-final,
+tr.win-final:hover {
+  background-color: #D5F5E3;
+  /* Light green for win */
+  font-weight: bold;
+}
+
+tr.lose-final,
+tr.lose-final:hover {
+  background-color: #FFCCCB;
+  /* Light red for lose */
+  font-weight: bold;
+}
